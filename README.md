@@ -2,6 +2,8 @@
 
 > Bilibili评论区第三方抽奖工具（WEB）
 
+***感谢长期以来对BiliCLOnline项目的支持，欢迎使用更新的[BiliCLMonkey项目（B站评论区抽奖油猴脚本）](https://github.com/InJeCTrL/BiliCLMonkey)！本项目将逐渐降低维护频率，服务端暂时不会有频繁更新，[本地版本](https://github.com/InJeCTrL/BiliCLOnline/releases/tag/LocalVersion)仍可使用。***
+
 ## 介绍
 
 本项目是上一年写的WPF应用[BiliCommentLottery](https://github.com/InJeCTrL/BiliCommentLottery)的升级版，尽管当时使用的SDK是DotNet Core 3.1，但由于WPF是Windows操作系统的专用UI框架，无法跨平台，给许多使用者带来些许不便，所以这次重构了老项目，将其由WPF应用改为WEB应用，后端基于DotNet Core开发WebAPI，前端界面使用LayUI搭建，这次在诸多平台上都可以使用了！（直接访问这个repo的[github-pages](https://injectrl.github.io/BiliCLOnline/)就可以）
@@ -64,6 +66,15 @@ MacOS用户在BiliCLOnline文件所在目录下启动终端，并执行命令：
      `https://b23.tv/Qzqqj9`
 
 ## 更新与其它说明
+
+2024-01-21更新：
+
+1. 增加自定义填写B站Cookie框，不填写Cookie默认执行扫码登录逻辑
+
+2024-01-20更新：
+
+1. 抽取评论前需要B站移动端扫码登录，适应B站评论接口安全策略
+2. 服务以容器形式部署到AWS EC2
 
 2023-03-17更新：
 
@@ -133,16 +144,15 @@ MacOS用户在BiliCLOnline文件所在目录下启动终端，并执行命令：
 
 - 后端WebAPI: DotNet 7.0
 - 前端UI: LayUI 2.5.7
-- 代理API：ScrapingAnt
-- 验证码：HCaptcha
+- 验证码: HCaptcha
 
 ## 后端部署
 
 ```shell
 docker pull injectrl/biliclonline:latest
-docker run -d -it --name {name} -p 5000:5000 -e HCaptchaSecret="xxx" -e CorsTarget="xxx" -e SAKeys="xxx" injectrl/biliclonline:latest
+docker run -d -it --name {name} -p 5000:5000 -e HCaptchaSecret="xxx" -e CorsTarget="xxx" injectrl/biliclonline:latest
 ```
 
 ## 目前服务器端
 
-服务托管到Okteto
+服务以容器形式运行在AWS EC2

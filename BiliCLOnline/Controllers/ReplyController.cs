@@ -21,13 +21,14 @@ namespace BiliCLOnline.Controllers
         /// 执行获取评论区列表任务
         /// </summary>
         /// <param name="id">评论承载者标准标识符</param>
+        /// <param name="cookie">Bilibili Cookie</param>
         /// <returns></returns>
-        [HttpGet("{id}")]
-        public async Task<ActionResult<ResultWrapper>> ExecuteFetchReplyResult(string id)
+        [HttpGet("{id}/{cookie}")]
+        public async Task<ActionResult<ResultWrapper>> ExecuteFetchReplyResult(string id, string cookie)
         {
             // 执行获取评论列表任务
-            var taskID = await replyResult.InvokeGetListTask(id);
-
+            var taskID = await replyResult.InvokeGetListTask(id, cookie);
+            
             return new ResultWrapper
             {
                 Code = 0,

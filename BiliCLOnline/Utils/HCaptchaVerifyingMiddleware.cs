@@ -25,8 +25,9 @@ namespace BiliCLOnline.Utils
         }
         public async Task InvokeAsync(HttpContext context)
         {
-            #region 获取任务结果路径无效校验
-            if (context.Request.Path.ToString().StartsWith("/api/Confirmation/"))
+            #region 获取任务结果路径 & 登录相关 无校验
+            if (context.Request.Path.ToString().StartsWith("/api/Confirmation/") ||
+                context.Request.Path.ToString().StartsWith("/api/Login/"))
             {
                 await next.Invoke(context);
                 return;
